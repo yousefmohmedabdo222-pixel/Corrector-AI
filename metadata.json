@@ -1,0 +1,8 @@
+{
+  "name": "مصلح المشاريع الذكي",
+  "description": "قم برفع مشروعك وسيقوم Gemini بتحليله من الجذور واكتشاف المشاكل وحلها تلقائياً، تصميم يوسف محمد عبد الفتاح.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
