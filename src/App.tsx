@@ -245,6 +245,9 @@ export default function App() {
         data = JSON.parse(responseText);
       } catch (parseErr) {
         const cleanServerText = responseText.replace(/<[^>]*>?/gm, '').trim();
+        if (cleanServerText.includes('FUNCTION_INVOCATION_TIMEOUT') || res.status === 504) {
+          throw new Error('استغرقت معالجة المشروع وقتاً أطول من مهلة الخادم (504 Timeout).\n\n💡 نصائح للحل السريع:\n1. اضغط على زر (حماية 🛡️) في قائمة الملفات لاستبعاد الملفات الثقيلة والمجلدات غير الضرورية (مثل node_modules أو الصور).\n2. حدد فقط الملفات ذات الصلة بالمشكلة لإتمام التحليل بسرعة فائقة.');
+        }
         if (!res.ok) {
           throw new Error(`خطأ من الخادم (${res.status}): ${cleanServerText.slice(0, 180) || 'تعذر معالجة الطلب على Vercel.'}`);
         } else {
@@ -534,7 +537,7 @@ export default function App() {
                   <div className="flex items-center justify-between text-xs text-slate-500 border-b border-slate-100 pb-2">
                     <div className="flex gap-2">
                       <span className="text-indigo-600 font-bold">[{new Date().toLocaleTimeString()}]</span>
-                      <span>Task Execution Engine: Gemini 3.6 Flash</span>
+                      <span>Task Execution Engine: Gemini 3.7 Flash</span>
                     </div>
                     {loading && (
                       <span className="text-amber-600 font-bold flex items-center gap-1">
@@ -563,7 +566,7 @@ export default function App() {
 
                     <div className="flex items-center gap-2">
                       <span className="text-emerald-400 font-bold">&gt;</span>
-                      <span className="text-slate-300">البحث عن السبب الجذري والمعالجة بواسطة Gemini 3.6...</span>
+                      <span className="text-slate-300">البحث عن السبب الجذري والمعالجة بواسطة Gemini 3.7 Flash...</span>
                       {loadingStep >= 3 ? (
                         <span className="mr-auto font-bold text-emerald-400">✓</span>
                       ) : (
@@ -829,7 +832,7 @@ export default function App() {
               {activeModal === 'about' && (
                 <>
                   <p className="font-semibold text-slate-900">عن مصلح الأكواد الذكي:</p>
-                  <p>منصة برمجية متطورة تعتمد على نموذج الذكاء الاصطناعي Gemini 3.6 Flash لفحص وإصلاح الثغرات والأخطاء في المشاريع المرفوقة بصيغة ZIP، مع توفير تقارير تفصيلية وإعادة تحميل الحزم المصححة بنقرة واحدة.</p>
+                  <p>منصة برمجية متطورة تعتمد على نموذج الذكاء الاصطناعي الأحدث Gemini 3.7 Flash لفحص وإصلاح الثغرات والأخطاء في المشاريع المرفوقة بصيغة ZIP، مع توفير تقارير تفصيلية وإعادة تحميل الحزم المصححة بنقرة واحدة.</p>
                   <p className="text-xs text-slate-500 pt-2 border-t">تطوير وتصميم: يوسف محمد عبد الفتاح | جاهز للاستضافة على Vercel وGoogle Search Console وGoogle AdSense.</p>
                 </>
               )}
